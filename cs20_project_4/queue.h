@@ -57,10 +57,7 @@ void Queue<Type>::dequeue() {
 
 template<typename Type>
 bool Queue<Type>::empty() const {
-	
-	/*  TODO  */
-
-	return false;
+	return list.empty();
 }
 
 
@@ -77,8 +74,6 @@ Type Queue<Type>::peek() const {
 
 template<typename Type>
 void Queue<Type>::print() const {
-	
-	/*  TODO  */
 	list.print();
 }
 

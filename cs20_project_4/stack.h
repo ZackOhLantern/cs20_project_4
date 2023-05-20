@@ -53,10 +53,7 @@ void Stack<Type>::pop() {
 
 template<typename Type>
 bool Stack<Type>::empty() const {
-	
-	/*  TODO  */
-
-	return false;
+	return list.empty();
 }
 
 
@@ -73,8 +70,6 @@ Type Stack<Type>::peek() const {
 
 template<typename Type>
 void Stack<Type>::print() const {
-	
-	/* TODO */
 	list.print();
 }
 
