@@ -1,10 +1,11 @@
 // DEFINE YOUR RUN
-#define RUN02 //RUN02
+#define RUN01 //RUN02
 
 #ifdef RUN01
 #include"studentinfo.h"
 #include<string>
 using std::string;
+#include <iostream>
 #include"stack.h"
 #include"queue.h"
 
@@ -23,23 +24,30 @@ int main() {
 	stack.push("Sanchez");
 
 	stack.print();
+	std::cout << std::endl;
 
 	queue.enqueue(stack.peek());
 	stack.pop();
+	std::cout << std::endl;
 
 	queue.enqueue(stack.peek());
 	stack.pop();
+	std::cout << std::endl;
 
 	queue.enqueue(stack.peek());
 	stack.pop();
+	std::cout << std::endl;
 
 	queue.enqueue(stack.peek());
 	stack.pop();
+	std::cout << std::endl;
 
 	queue.dequeue();
 	queue.dequeue();
+	std::cout << std::endl;
 
 	queue.print();
+	std::cout << std::endl;
 
 	return 0;
 }
