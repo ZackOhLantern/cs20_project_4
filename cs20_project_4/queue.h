@@ -79,7 +79,7 @@ template<typename Type>
 void Queue<Type>::print() const {
 	
 	/*  TODO  */
-
+	list.print();
 }
 
 
