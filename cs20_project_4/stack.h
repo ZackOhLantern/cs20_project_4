@@ -59,12 +59,9 @@ bool Stack<Type>::empty() const {
 
 template<typename Type>
 Type Stack<Type>::peek() const {
-
-	/*  TODO  */
-	
-	Type RETURN_VALUE_REQUIRED_TO_COMPILE;
-
-	return RETURN_VALUE_REQUIRED_TO_COMPILE;
+	//Type RETURN_VALUE_REQUIRED_TO_COMPILE;
+	return list.peek_front();
+	//return RETURN_VALUE_REQUIRED_TO_COMPILE;
 }
 
 
