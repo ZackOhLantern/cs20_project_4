@@ -53,7 +53,7 @@ template<typename Type>
 void Stack<Type>::pop() {
 	
 	/*  TODO  */
-
+	list.remove_front();
 	
 }
 
