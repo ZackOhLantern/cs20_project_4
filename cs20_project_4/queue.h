@@ -51,7 +51,7 @@ template<typename Type>
 void Queue<Type>::dequeue() {
 	
 	/*  TODO  */
-	list.remove_rear()
+	list.remove_front();
 }
 
 
