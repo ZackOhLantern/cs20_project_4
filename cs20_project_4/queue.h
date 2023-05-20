@@ -43,7 +43,7 @@ template<typename Type>
 void Queue<Type>::enqueue(Type item) {
 	
 	/*  TODO  */
-
+	list.insert_rear(item);
 }
 
 

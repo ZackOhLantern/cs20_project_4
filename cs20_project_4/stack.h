@@ -82,7 +82,7 @@ template<typename Type>
 void Stack<Type>::print() const {
 	
 	/* TODO */
-
+	list.print();
 }
 
 
