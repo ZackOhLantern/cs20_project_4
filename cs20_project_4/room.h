@@ -21,8 +21,8 @@ public:
 	// for shallow copy, which is fine since there is no dynamically
 	// allocated memory.
 
-	int x() const;
-	int y() const;
+	int x() const;  //return x
+	int y() const;  //return y
 	Room read() const;
 	void write(int x, int y);
 

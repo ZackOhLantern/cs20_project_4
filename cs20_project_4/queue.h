@@ -59,9 +59,7 @@ bool Queue<Type>::empty() const {
 
 template<typename Type>
 Type Queue<Type>::peek() const {
-	//Type RETURN_VALUE_REQUIRED_TO_COMPILE; 
 	return list.peek_front();
-	//return RETURN_VALUE_REQUIRED_TO_COMPILE;
 }
 
 
