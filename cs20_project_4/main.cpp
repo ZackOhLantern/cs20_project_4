@@ -1,5 +1,5 @@
 // DEFINE YOUR RUN
-#define RUN01 //RUN02
+#define RUN02 //RUN02
 
 #ifdef RUN01
 #include"studentinfo.h"
