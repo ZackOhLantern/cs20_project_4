@@ -109,11 +109,7 @@ Player::Player(Maze* maze, Room p, std::string name, char sprite, const bool tba
 	//		Make sure the STATE::LOOK aspect compiles and works first.
 	void Player::update() {
 
-		/* TODO */
 		say();
-
-
-
 		if (!BACKTRACKENABLED) {
 
 			if (state() == State::LOOK) {
@@ -132,11 +128,11 @@ Player::Player(Maze* maze, Room p, std::string name, char sprite, const bool tba
 
 				move(getTargetRoom());
 				m_discoveredRooms.insert_front(room());
-				
+
 				Room up(room().x(), room().y() + 1);
 				Room down(room().x(), room().y() - 1);
-				Room left(room().x()-1, room().y());
-				Room right(room().x()+1, room().y());
+				Room left(room().x() - 1, room().y());
+				Room right(room().x() + 1, room().y());
 
 				if ((m_discoveredRooms.find(up) == -1) && ((maze()->open(up)))) {
 					m_lookingPaper.enqueue(up);
@@ -156,7 +152,6 @@ Player::Player(Maze* maze, Room p, std::string name, char sprite, const bool tba
 
 				if (getTargetRoom() == room()) {
 					m_lookingPaper.dequeue();
-					//m_lookingPaper.dequeue();
 				}
 
 				//// Pick a random direction
@@ -200,13 +195,147 @@ Player::Player(Maze* maze, Room p, std::string name, char sprite, const bool tba
 
 			}
 
-	// Set by the settings file, if BACKTRACKENABLED is false, then
-	// your program should behave exactly as seen in the slides or
-	// example executables (with teleporting).
-	// You may have multiple branching statements like this.
-	// if(BACKTRACKENABLED) { ... code relating to backtracking 
+			// Set by the settings file, if BACKTRACKENABLED is false, then
+			// your program should behave exactly as seen in the slides or
+			// example executables (with teleporting).
+			// You may have multiple branching statements like this.
+			// if(BACKTRACKENABLED) { ... code relating to backtracking 
 
-	
+
+		}
+
+		if (BACKTRACKENABLED) {
+
+			if (state() == State::LOOK) {
+
+				Room currentRoom = room();
+				m_btList.insert_front(room());
+
+				if (maze()->foundExit(currentRoom)) {
+					state(State::EXIT);
+					return;
+				}
+
+				if (m_lookingPaper.empty()) {
+					state(State::NOEXIT);
+					return;
+				}
+
+
+
+				// ~~ ** ROOM LOGGING ** ~~
+
+				if (m_discoveredRooms.find(room()) == -1) {
+					m_discoveredRooms.insert_front(room());
+				}
+
+				Room up(room().x(), room().y() + 1);
+				Room down(room().x(), room().y() - 1);
+				Room left(room().x() - 1, room().y());
+				Room right(room().x() + 1, room().y());
+
+				if ((m_discoveredRooms.find(down) == -1) && ((maze()->open(down)))) {
+					m_lookingPaper.enqueue(down);
+				}
+
+				if ((m_discoveredRooms.find(up) == -1) && ((maze()->open(up)))) {
+					m_lookingPaper.enqueue(up);
+				}
+
+				if ((m_discoveredRooms.find(right) == -1) && ((maze()->open(right)))) {
+					m_lookingPaper.enqueue(right);
+				}
+
+				if ((m_discoveredRooms.find(left) == -1) && ((maze()->open(left)))) {
+					m_lookingPaper.enqueue(left);
+				}
+
+				if (getTargetRoom() == room()) {
+					m_lookingPaper.dequeue();
+				}
+				
+				// ~~ ** MOVEMENT ** ~~
+
+
+				if (getTargetRoom() == down) {
+					move(down);
+					return;
+				}
+				if (getTargetRoom() == up) {
+					move(up);
+					return;
+				}
+				if (getTargetRoom() == right) {
+					move(right);
+					return;
+				}
+				if (getTargetRoom() == left) {
+					move(left);
+					return;
+				}
+
+
+				
+				// ~~ ** DEAD END CHECKER ** ~~
+				if ((!(m_btList.find(down) == -1) || (!(maze()->open(down)))) && (!(m_btList.find(up) == -1) || (!(maze()->open(up)))) && (!(m_btList.find(left) == -1) || (!(maze()->open(left)))) && (!(m_btList.find(right) == -1) || (!(maze()->open(right))))) {
+					state(State::BACKTRACK);
+				}
+
+
+				// Pick a random direction
+				int dir = maze()->randInt(0, 3);
+
+				// Check to see if desired direction is inbounds.
+				// Accounting for the Walls and one space to allow
+				// movement in that direction. Update the x,y
+				// coordinates or do nothing
+				switch (dir) {
+				case 0:
+					if ((!maze()->open(down)) || (!(m_btList.find(down) == -1)))	break;   
+					else move(down);	
+					break;
+				case 1:  
+					if ((!maze()->open(up)) || (!(m_btList.find(up) == -1)))	break;
+					else move(up);		
+					break;
+				case 2:  
+					if ((!maze()->open(left)) || (!(m_btList.find(left) == -1)))	break;
+					else move(left);	
+					break;
+				case 3:  
+					if ((!maze()->open(right)) || (!(m_btList.find(right) == -1)))	break;
+					else move(right);	
+					break;
+				default: 
+					break;
+				}
+
+
+
+			}
+
+			if (state() == State::BACKTRACK) {
+
+				if (m_btList.empty()) {
+					(state(State::LOOK));
+				}
+
+
+				move(m_btList.peek_front());
+				if (m_btList.count() == 1) {
+					(state(State::LOOK));
+					return;
+				}
+				m_btList.remove_front();
+
+			}
+
+			if (state() == State::NOEXIT) {
+
+			}
+
+			if (state() == State::EXIT) {
+
+			}
+		}
 	}
-
-}
