@@ -125,8 +125,7 @@ Player::Player(Maze* maze, Room p, std::string name, char sprite, const bool tba
 					return;
 				}
 
-				//noexit is bugged
-				if (maze()->numOpenRooms() == m_discoveredRooms.count()) {
+				if (m_lookingPaper.empty()) {
 					state(State::NOEXIT);
 					return;
 				}
