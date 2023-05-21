@@ -110,45 +110,84 @@ Player::Player(Maze* maze, Room p, std::string name, char sprite, const bool tba
 	void Player::update() {
 
 		/* TODO */
+		say();
+
+
 
 		if (!BACKTRACKENABLED) {
 
 			if (state() == State::LOOK) {
 
+				Room currentRoom = room();
+
+				if (maze()->foundExit(currentRoom)) {
+					state(State::EXIT);
+					return;
+				}
+
+				//noexit is bugged
+				if (maze()->numOpenRooms() == m_discoveredRooms.count()) {
+					state(State::NOEXIT);
+					return;
+				}
+
 				move(getTargetRoom());
+				m_discoveredRooms.insert_front(room());
+				
+				Room up(room().x(), room().y() + 1);
+				Room down(room().x(), room().y() - 1);
+				Room left(room().x()-1, room().y());
+				Room right(room().x()+1, room().y());
+
+				if ((m_discoveredRooms.find(up) == -1) && ((maze()->open(up)))) {
+					m_lookingPaper.enqueue(up);
+				}
+
+				if ((m_discoveredRooms.find(down) == -1) && ((maze()->open(down)))) {
+					m_lookingPaper.enqueue(down);
+				}
+
+				if ((m_discoveredRooms.find(left) == -1) && ((maze()->open(left)))) {
+					m_lookingPaper.enqueue(left);
+				}
+
+				if ((m_discoveredRooms.find(right) == -1) && ((maze()->open(right)))) {
+					m_lookingPaper.enqueue(right);
+				}
 
 				if (getTargetRoom() == room()) {
-
+					m_lookingPaper.dequeue();
+					//m_lookingPaper.dequeue();
 				}
 
-				// Pick a random direction
-				int dir = maze()->randInt(0, 3);
-				// Get a copy of sharks current position
-				Room p = room();
+				//// Pick a random direction
+				//int dir = maze()->randInt(0, 3);
+				//// Get a copy of sharks current position
+				//Room p = room();
 
-				int rows = maze()->rows();
-				int cols = maze()->cols();
-				int x = p.x();
-				int y = p.y();
+				//int rows = maze()->rows();
+				//int cols = maze()->cols();
+				//int x = p.x();
+				//int y = p.y();
 
-				// Check to see if desired direction is inbounds.
-				// Accounting for the Walls and one space to allow
-				// movement in that direction. Update the x,y
-				// coordinates or do nothing
-				switch (dir) {
-				case 0:  if (y <= 2)      return; else y--; break;
-				case 1:  if (y >= rows - 3) return; else y++; break;
-				case 2:  if (x <= 2)      return; else x--; break;
-				case 3:  if (x >= cols - 3) return; else x++; break;
-				default: return;
-				}
+				//// Check to see if desired direction is inbounds.
+				//// Accounting for the Walls and one space to allow
+				//// movement in that direction. Update the x,y
+				//// coordinates or do nothing
+				//switch (dir) {
+				//case 0:  if (y <= 2)      return; else y--; break;
+				//case 1:  if (y >= rows - 3) return; else y++; break;
+				//case 2:  if (x <= 2)      return; else x--; break;
+				//case 3:  if (x >= cols - 3) return; else x++; break;
+				//default: return;
+				//}
 
-				// Check to see if new position is an open cell
-				p.write(x, y);
-				if (!maze()->open(p))
-					return;
+				//// Check to see if new position is an open cell
+				//p.write(x, y);
+				//if (!maze()->open(p))
+				//	return;
 
-				move(p);
+				//move(p);
 			}
 
 			if (state() == State::BACKTRACK) {
