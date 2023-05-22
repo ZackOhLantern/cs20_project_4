@@ -315,26 +315,26 @@ Player::Player(Maze* maze, Room p, std::string name, char sprite, const bool tba
 
 
 
-				//if (getTargetRoom() == down) {
-				//	move(down);
-				//	//(state(State::LOOK));
-				//	return;
-				//}
-				//if (getTargetRoom() == up) {
-				//	move(up);
-				//	//(state(State::LOOK));
-				//	return;
-				//}
-				//if (getTargetRoom() == right) {
-				//	move(right);
-				//	//(state(State::LOOK));
-				//	return;
-				//}
-				//if (getTargetRoom() == left) {
-				//	move(left);
-				//	//(state(State::LOOK));
-				//	return;
-				//}
+				if (maze()->open(down) && !discovered(down)) {
+					move(down);
+					//(state(State::LOOK));
+					return;
+				}
+				if (maze()->open(up) && !discovered(up)) {
+					move(up);
+					//(state(State::LOOK));
+					return;
+				}
+				if (maze()->open(right) && !discovered(right)) {
+					move(right);
+					(state(State::LOOK));
+					return;
+				}
+				if (maze()->open(left) && !discovered(left)) {
+					move(left);
+					(state(State::LOOK));
+					return;
+				}
 
 
 
