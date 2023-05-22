@@ -136,18 +136,22 @@ Player::Player(Maze* maze, Room p, std::string name, char sprite, const bool tba
 
 				if ((m_discoveredRooms.find(up) == -1) && ((maze()->open(up)))) {
 					m_lookingPaper.enqueue(up);
+					m_discoveredRooms.insert_rear(up);
 				}
 
 				if ((m_discoveredRooms.find(down) == -1) && ((maze()->open(down)))) {
 					m_lookingPaper.enqueue(down);
+					m_discoveredRooms.insert_rear(down);
 				}
 
 				if ((m_discoveredRooms.find(left) == -1) && ((maze()->open(left)))) {
 					m_lookingPaper.enqueue(left);
+					m_discoveredRooms.insert_rear(left);
 				}
 
 				if ((m_discoveredRooms.find(right) == -1) && ((maze()->open(right)))) {
 					m_lookingPaper.enqueue(right);
+					m_discoveredRooms.insert_rear(right);
 				}
 
 				if (getTargetRoom() == room()) {
