@@ -201,7 +201,10 @@ Player::Player(Maze* maze, Room p, std::string name, char sprite, const bool tba
 					return;
 				}
 
-
+				if ((getTargetRoom() == room()) && !(m_btList.count() == 1)) {
+					m_lookingPaper.dequeue();
+					return;
+				}
 
 				// ~~ ** ROOM LOGGING ** ~~
 
