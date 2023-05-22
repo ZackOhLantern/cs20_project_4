@@ -4,5 +4,5 @@ X X XXXX
 X X    X
 XXXXXX X
 X XX X X
-X   EX X
+X    XEX
 XXXXXXXX
