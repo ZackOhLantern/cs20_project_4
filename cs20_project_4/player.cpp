@@ -218,6 +218,7 @@ Player::Player(Maze* maze, Room p, std::string name, char sprite, const bool tba
 
 
 
+
 				if (!(discovered(down)) && ((maze()->open(down)))) {
 					m_lookingPaper.enqueue(down);
 					m_discoveredRooms.insert_rear(down);
@@ -319,27 +320,49 @@ Player::Player(Maze* maze, Room p, std::string name, char sprite, const bool tba
 
 
 
-				if (maze()->open(down) && !discovered(down)) {
-					move(down);
-					//(state(State::LOOK));
-					return;
-				}
-				if (maze()->open(up) && !discovered(up)) {
-					move(up);
-					//(state(State::LOOK));
-					return;
-				}
-				if (maze()->open(right) && !discovered(right)) {
-					move(right);
+				//if (maze()->open(down) && !discovered(down)) {
+				//	move(down);
+				//	(state(State::LOOK));
+				//	return;
+				//}
+				//if (maze()->open(up) && !discovered(up)) {
+				//	move(up);
+				//	(state(State::LOOK));
+				//	return;
+				//}
+				//if (maze()->open(right) && !discovered(right)) {
+				//	move(right);
+				//	(state(State::LOOK));
+				//	return;
+				//}
+				//if (maze()->open(left) && !discovered(left)) {
+				//	move(left);
+				//	(state(State::LOOK));
+				//	return;
+				//}
+
+				////////////////////
+				///////////////////
+
+				if ((getTargetRoom() == down)) {
 					(state(State::LOOK));
 					return;
 				}
-				if (maze()->open(left) && !discovered(left)) {
-					move(left);
+				if ((getTargetRoom() == up)) {
+					(state(State::LOOK));
+					return;
+				}
+				if ((getTargetRoom() == left)) {
+					(state(State::LOOK));
+					return;
+				}
+				if ((getTargetRoom() == right)) {
 					(state(State::LOOK));
 					return;
 				}
 
+				////////////////////
+				////////////////////
 
 
 				move(m_btList.peek_front());
